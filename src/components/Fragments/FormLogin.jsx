@@ -1,17 +1,26 @@
 import InputForm from "../Elements/Input";
 import Button from "../Elements/Button";
 import { EyeIcon } from "@heroicons/react/16/solid";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-const FormLogin = (props) => {
-  const { onSubmit, onChange } = props;
+const FormLogin = () => {
   // Icons
   const eye = <EyeIcon className="absolute ms-72" width="20" height="20" />;
 
+  const navigate = useNavigate();
+
+  const handleLogin = (event) => {
+    event.preventDefault();
+    localStorage.setItem("email", event.target.email.value);
+    localStorage.setItem("password", event.target.password.value);
+    localStorage.setItem("name", "Hanif Aji Prasetyo");
+    navigate("/profile");
+  };
+
   return (
-    <form action="" onSubmit={onSubmit}>
-      <InputForm label="Email" type="email" name="email" placeholder="hanif@gmail.com" onChange={onChange}></InputForm>
-      <InputForm label="Password" type="password" name="password" placeholder="*************" icon={eye} onChange={onChange}></InputForm>
+    <form onSubmit={handleLogin}>
+      <InputForm label="Email" type="email" name="email" placeholder="hanif@gmail.com"></InputForm>
+      <InputForm label="Password" type="password" name="password" placeholder="*************" icon={eye}></InputForm>
       <div className="flex justify-between mb-6 text-xs">
         <div className="flex items-center gap-1">
           <input
